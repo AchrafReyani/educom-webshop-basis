@@ -58,5 +58,8 @@ body {
     text-decoration: none;
   }
   
-  
+  #message {
+    width: 400px;
+    height: 100px;
+  }
   
