@@ -38,7 +38,16 @@
   $valid = false;
 
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+ 
     //validate the 'POST' data
+    if (empty($_POST['pronouns'])) {
+      $pronounError = 'Please select a pronoun.';
+      $valid = false;
+    } else {
+      $valid = true;
+    }
+
+
   }
   ?>
 
@@ -50,13 +59,17 @@
 
 
     <h2>Contact Me</h2>
+
+  <section>
+
+  <?php if (!$valid) {/* Show the form if $valid is false */ ?>
+
     <p>If you have any questions or comments, please feel free to contact me using the form below.</p>
-
-
-<form action="contact.php" method="post" enctype="text/plain">
+<form action="contact.php" method="POST" enctype="text/plain">
   
   <label for="pronouns">Pronouns:</label>
   <select id="pronouns" name="pronouns">
+    <option value="">Please select a pronoun</option>
     <option value="he/him">He/him</option>
     <option value="she/her">She/her</option>
     <option value="they/them">They/them</option>
@@ -102,6 +115,14 @@
 
 </form>
 
+  <?php } else { /*show thank you message if $valid is true */ ?>
+
+  <p>Thank you for your message! I will get back to you as soon as possible.</p>
+
+  <?php } ?>
+
+
+</section>
 
 </body>
 <footer>&copy; Copyright 2024 Achraf Reyani</footer>
