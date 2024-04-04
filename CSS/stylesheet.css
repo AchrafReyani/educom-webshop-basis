@@ -38,14 +38,16 @@ body {
     font-size: 10px;
   }
   
-  input {
-    width: 400px;
-    padding: 5px;
-    margin-bottom: 10px;
-  }
-  
   #message {
     width: 400px;
     height: 100px;
   }
-  
+
+  input, select, textarea {
+    width: 400px;
+    padding: 5px;
+    margin-bottom: 10px;
+ }
+ input[type=radio], input[type=submit] {
+   width: auto
+ }

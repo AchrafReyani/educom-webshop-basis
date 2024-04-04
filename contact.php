@@ -78,6 +78,8 @@ if ($_POST["communication"] == "postal" && empty($_POST["street"]) || empty($_PO
     <p>If you have any questions or comments, please feel free to contact me using the form below.</p>
 <form action="contact.php" method="POST">
   
+
+<div>
   <label for="pronouns">Pronouns:</label>
   <select name="pronouns" value="<?php echo $pronouns;?>">
     <option value="">Please select a pronoun</option>
@@ -88,57 +90,69 @@ if ($_POST["communication"] == "postal" && empty($_POST["street"]) || empty($_PO
     <option value="prefer not to say">Prefer not to say</option>
   </select>
   <span>* <?php echo $pronounError;?></span>
-  <br>
+  </div>
 
+  <div>
   <label for="name">Name:</label>
   <input type="text" name="name" value="<?php echo $name;?>">
   <span>* <?php echo $nameError;?></span>
-  <br>
+  </div>
 
+  <div>
   <label for="email">Email:</label>
   <input type="email" name="email" value="<?php echo $email;?>">
   <span> <?php echo $emailError;?></span>
-  <br>
+  </div>
 
+  <div>
   <label for="phone number">Phone number:</label>
   <input type="tel" name="phonenumber">
   <span> <?php echo $phonenumberError;?></span>
-  <br>
+  </div>
 
+  <div>
   <label for="street">Street name:</label>
   <input type="text" name="street" value="<?php echo $street;?>">
-  <br>
+  </div>
 
+  <div>
   <label for="house number">House number (+ suffix if applicable):</label>
   <input type="text" name="housenumber" value="<?php echo $housenumber;?>">
-  <br>
+  </div>
 
+  <div>
   <label for="postal code">Postal code:</label>
   <input type="text" name="postalcode" value="<?php echo $postalcode;?>">
-  <br>
+  </div>
 
+  <div>
   <label for="city">City:</label>
   <input type="text" name="city" value="<?php echo $city;?>">
-  <br>
+  </div>
 
+  <div>
   <p>Preferred Communication Method:</p> <span>* <?php echo $communicationError;?></span>
-  <br>
+
   <label for="email-communication">Email</label>
   <input type="radio" name="communication" value="<?php echo $communicationmethod[0];?>">
-  <br>
+  
+
   <label for="phone-communication">Phone</label>
   <input type="radio"  name="communication" value="<?php echo $communicationmethod[1];?>">
-  <br>
+  
   <label for="postal-communication">Postal Mail</label>
   <input type="radio"  name="communication" value="<?php echo $communicationmethod[2];?>">
-  <br>
+  </div>
 
+  <div>
   <label for="message">Message:</label>
   <textarea name="message"></textarea>
   <span>* <?php echo $messageError;?></span>
-  <br>
-  <input type="submit" value="Send">
+  </div>
 
+  <div>
+  <input type="submit" value="Send">
+  </div>
 </form>
 
 
