@@ -37,7 +37,7 @@
 
   $valid = false;
 
-  if ($SERVER['REQUEST_METHOD'] == 'POST') {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //validate the 'POST' data
   }
   ?>
