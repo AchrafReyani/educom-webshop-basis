@@ -53,7 +53,7 @@
     <p>If you have any questions or comments, please feel free to contact me using the form below.</p>
 
 
-<form action="mailto:achrafreyani99@gmail.com" method="post" enctype="text/plain">
+<form action="contact.php" method="post" enctype="text/plain">
   
   <label for="pronouns">Pronouns:</label>
   <select id="pronouns" name="pronouns">
