@@ -16,14 +16,19 @@
   $pronouns = $name = $email = $phonenumber = $street = $housenumber = $postalcode =
   $city = $communication = $message = "";
 
-  $testvar = "";
-  $testvarErr = "";
+
 
   $pronounError = $nameError = $emailError = $phonenumberError = $streetError = $housenumberError = $postalcodeError = $cityError = $communicationError = $messageError = $valid = "";
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["testvar"])) {
-      $testvarErr = "Name is required";
+    if (empty($_POST["pronouns"])) {
+      $pronounError = "Pronouns are required";
+    } else {
+      $valid = true;
+    }
+
+    if (empty($_POST["name"])) {
+      $nameError = "Name is required";
     } else {
       $valid = true;
     }
@@ -45,13 +50,9 @@
 
     <p>If you have any questions or comments, please feel free to contact me using the form below.</p>
 <form action="contact.php" method="POST">
-
-
-Testvar: <input type="text" name="testvar" value="<?php echo $testvar;?>">
-  <span>* <?php echo $testvarErr;?></span>
   
   <label for="pronouns">Pronouns:</label>
-  <select id="pronouns" name="pronouns">
+  <select name="pronouns" value="<?php echo $pronouns;?>">
     <option value="">Please select a pronoun</option>
     <option value="he/him">He/him</option>
     <option value="she/her">She/her</option>
@@ -65,22 +66,22 @@ Testvar: <input type="text" name="testvar" value="<?php echo $testvar;?>">
   
   <br>
   <label for="email">Email:</label>
-  <input type="email" name="email">
+  <input type="email" name="email" value="<?php echo $email;?>">
 
   <label for="phone number">Phone number:</label>
   <input type="tel" name="phonenumber">
   <br>
   <label for="street">Street name:</label>
-  <input type="text" name="street">
+  <input type="text" name="street" value="<?php echo $street;?>">
 
   <label for="house number">House number (+ suffix if applicable):</label>
-  <input type="text" name="housenumber"></label>
+  <input type="text" name="housenumber" value="<?php echo $housenumber;?>">
   <br>
   <label for="postal code">Postal code:</label>
-  <input type="text" name="postalcode"></label>
+  <input type="text" name="postalcode" value="<?php echo $postalcode;?>">
 
   <label for="city">City:</label>
-  <input type="text" name="city"></label>
+  <input type="text" name="city" value="<?php echo $city;?>">
 
   <p>Preferred Communication Method:</p>
   <label for="email-communication">Email</label>
@@ -99,12 +100,6 @@ Testvar: <input type="text" name="testvar" value="<?php echo $testvar;?>">
 
 </form>
 
-<?php
-echo "<h2>Your Input:</h2>";
-echo $testvar;
-echo "<br>";
-echo $testvarErr;
-?>
 
   <?php } else { /*show thank you message if $valid is true */ ?>
 
