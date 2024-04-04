@@ -9,9 +9,38 @@
     <h1>Achraf's Webshop</h1>
 </header>
 
-
-
 <body>
+
+  <?php 
+  //initiate variables
+  $pronoun = '';
+  $name = '';
+  $email = '';
+  $phonenumber = ''; 
+  $street = ''; 
+  $housenumber = ''; 
+  $postalcode = ''; 
+  $city = ''; 
+  $communication = '';
+  $message = '';
+
+  $pronounError = '';
+  $nameError = '';
+  $emailError = '';
+  $phonenumberError = '';
+  $streetError = '';
+  $housenumberError = '';
+  $postalcodeError = '';
+  $cityError = '';
+  $communicationError = '';
+  $messageError = '';
+
+  $valid = false;
+
+  if ($SERVER['REQUEST_METHOD'] == 'POST') {
+    //validate the 'POST' data
+  }
+  ?>
 
   <ul class='menu'>  
     <li><a href="index.html">Home</a></li>
