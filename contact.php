@@ -5,9 +5,6 @@
     <link rel="stylesheet" href="CSS/stylesheet.css">
     <title>Contact</title>
 </head>
-<header>    
-    <h1>Achraf's Webshop</h1>
-</header>
 
 <body>
 
@@ -61,14 +58,6 @@ if ($_POST["communication"] == "postal" && empty($_POST["street"]) || empty($_PO
 }
 
   ?>
-
-  <ul class='menu'>  
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.php">Contact</a></li>
-</ul>  
-
-
     <h2>Contact Me</h2>
 
   <section>
@@ -164,7 +153,3 @@ if ($_POST["communication"] == "postal" && empty($_POST["street"]) || empty($_PO
 
 
 </section>
-
-</body>
-<footer>&copy; Copyright 2024 Achraf Reyani</footer>
-</html>

@@ -1,26 +1,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/stylesheet.css">
-    <title>Home</title>
+    <link rel="stylesheet" href="CSS/stylesheet.css"> 
 </head>
-<header>  
-    <h1>Achraf's Webshop</h1>
-</header>
-
 <body>
 
-    <ul class='menu'>  
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="index.php?page=contact">Contact</a></li>
-    </ul>  
 
+<?php
+//functions
 
-    <h2>Home</h2>
-<p>Welcome to my website!</p>
+function showHeader() {
+    include 'header.php';
+}
+
+function showMenu() {
+    include 'menu.php';
+}
+
+function showHomePage() {
+    include 'home.php';
+}
+
+function showAboutPage() {
+    include 'about.php';
+}
+
+function showContactPage() {
+    include 'contact.php';
+}
+
+function showFooter() {
+    include 'footer.php';
+}
+
+function getRequestedPage(){
+	if(!isset($_GET['page'])){
+		return 'Home';
+	}
+	else {
+		return $_GET['page'];
+	}
+}
+
+function showResponsePage($data){
+	showHeader();
+	showMenu();
+	switch($data)
+	{
+		case 'Home';
+		  showHomePage();
+		  break;
+		case 'About';
+		  showAboutPage();
+		  break;
+		case 'Contact';
+		  showContactPage();
+		  break;
+		default; 
+		  showHomePage();
+	}
+	showFooter();
+}
+
+$page = getRequestedPage();
+showResponsePage($page);
+
+?>
 
 </body>
-<footer>&copy; Copyright 2024 Achraf Reyani</footer>
 </html>
