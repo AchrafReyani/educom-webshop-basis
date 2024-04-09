@@ -123,14 +123,14 @@ if ($_POST["communication"] == "postal" && empty($_POST["street"]) || empty($_PO
   <p>Preferred Communication Method:</p> <span>* <?php echo $communicationError;?></span>
 
   <label for="email-communication">Email</label>
-  <input type="radio" name="communication" value="<?php echo $communicationmethod[0];?>">
+  <input type="radio" id="email-communication" name="communication" value="<?php echo $communicationmethod[0];?>">
   
 
   <label for="phone-communication">Phone</label>
-  <input type="radio"  name="communication" value="<?php echo $communicationmethod[1];?>">
+  <input type="radio" id="phone-communication"  name="communication" value="<?php echo $communicationmethod[1];?>">
   
   <label for="postal-communication">Postal Mail</label>
-  <input type="radio"  name="communication" value="<?php echo $communicationmethod[2];?>">
+  <input type="radio" id="postal-communication" name="communication" value="<?php echo $communicationmethod[2];?>">
   </div>
 
   <div>
