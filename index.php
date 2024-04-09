@@ -7,30 +7,20 @@
 
 
 <?php
+
+//includes
+include 'header.php';
+include 'menu.php';
+include 'home.php';
+include 'about.php';
+//include 'contact.php';
+include 'footer.php';
+
+
 //functions
-
-function showHeader() {
-    include 'header.php';
-}
-
-function showMenu() {
-    include 'menu.php';
-}
-
-function showHomePage() {
-    include 'home.php';
-}
-
-function showAboutPage() {
-    include 'about.php';
-}
 
 function showContactPage() {
     include 'contact.php';
-}
-
-function showFooter() {
-    include 'footer.php';
 }
 
 function showContent($data){

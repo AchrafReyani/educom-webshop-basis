@@ -1,7 +1,11 @@
  
-<?php echo '<ul class=\'menu\'>
+<?php 
+
+function showMenu() {
+    echo '<ul class=\'menu\'>
   <li><a href=\'?page=Home\'>Home</a></li>
   <li><a href=\'?page=About\'>About</a></li>
   <li><a href=\'?page=Contact\'>Contact</a></li>
 </ul>';
+}
 ?>
