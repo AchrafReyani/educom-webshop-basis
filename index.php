@@ -1,11 +1,3 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="CSS/stylesheet.css"> 
-</head>
-<body>
-
-
 <?php
 
 //includes
