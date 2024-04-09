@@ -33,18 +33,7 @@ function showFooter() {
     include 'footer.php';
 }
 
-function getRequestedPage(){
-	if(!isset($_GET['page'])){
-		return 'Home';
-	}
-	else {
-		return $_GET['page'];
-	}
-}
-
-function showResponsePage($data){
-	showHeader();
-	showMenu();
+function showContent($data){
 	switch($data)
 	{
 		case 'Home';
@@ -59,8 +48,25 @@ function showResponsePage($data){
 		default; 
 		  showHomePage();
 	}
+}
+
+function getRequestedPage(){
+	if(!isset($_GET['page'])){
+		return 'Home';
+	}
+	else {
+		return $_GET['page'];
+	}
+}
+
+function showResponsePage($data){
+	showHeader();
+	showMenu();
+	showContent($data);
 	showFooter();
 }
+
+
 
 $page = getRequestedPage();
 showResponsePage($page);
