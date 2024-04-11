@@ -9,7 +9,6 @@
   $pronouns = $name = $email = $phonenumber = $street = $housenumber = $postalcode =
   $city = $communication = $message = "";
   
-  $communicationmethod = array("email", "phone", "postal");
 
   //initiate error message variables
   $pronounError = $nameError = $emailError = $phonenumberError = $streetError = $housenumberError = $postalcodeError = $cityError = $communicationError = $messageError = "";
@@ -88,10 +87,12 @@
 
 
 
-
-    if (empty($_POST["communication"])) {
+      if (empty($_POST["communication"])) {
         $communicationError = "Communication method is required";
+      } else {
+        $communicationmethod = $_POST['communication'];
       }
+
 
       $requiredFields = false;
     if (!empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"])) {
@@ -99,7 +100,7 @@
       }
 
       //TODO check to see if this can be made smaller
-    if ($_POST["communication"] == "email" && empty($_POST["email"])) {
+    if ($_POST['communication'] == "email" && empty($_POST["email"])) {
         $emailError = "Please enter a valid email address";
       } else if ($_POST["communication"] == "email" && !empty($_POST["email"]) &&  $requiredFields ) {
           $valid  = true;
@@ -113,7 +114,7 @@
       }
 
 
-      $isPostalAddressMandatory = ($_POST['communication'] == 'postal') || empty($_POST['street']) || empty($_POST['housenumber']) || empty($_POST['postalcode']) || empty($_POST['city'] && $requiredFields);
+      $isPostalAddressMandatory = ($_POST["communication"] == 'postal') || empty($_POST['street']) || empty($_POST['housenumber']) || empty($_POST['postalcode']) || empty($_POST['city'] && $requiredFields);
 
       if ($isPostalAddressMandatory && empty($_POST['street'])) {
         $streetError = 'Street is mandatory';
@@ -180,7 +181,10 @@
 
   //temporary function to show communication preference input field
   function showCommunicationPreference() {
-    global $communicationError, $communicationmethod;
+      $communicationmethod = ["email", "phone", "postal"];
+      $communicationError = "";
+
+    
   
     echo "
       <div>

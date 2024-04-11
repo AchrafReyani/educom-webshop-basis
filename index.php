@@ -68,21 +68,21 @@ function processRequest($page) {
       }
       break;
     }
-    $data['page'] = $page;
+    $data['page'] = $page; //add value of current page to the data
     return $data;
 }
 function showResponsePage($data){
 	beginDocument();
 	showHeader();
 	showMenu();
-	showContent($data);
+	showContent($data); //use the data received to fill in unifinished form with valid data
 	showFooter();
 	endDocument();
 }
 
 $page = getRequestedPage();
 $data = processRequest($page);
-var_dump($data);
+var_dump($data);//for testing
 showResponsePage($data);
 
 ?>
