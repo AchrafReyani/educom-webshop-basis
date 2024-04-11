@@ -1,65 +1,143 @@
 
 <?php 
 
-  //add empty values to variables
+
+  
+
+  function validateInput() { 
+      //add empty values to variables
   $pronouns = $name = $email = $phonenumber = $street = $housenumber = $postalcode =
   $city = $communication = $message = "";
   
   $communicationmethod = array("email", "phone", "postal");
 
   //initiate error message variables
-  $pronounError = $nameError = $emailError = $phonenumberError = $streetError = $housenumberError = $postalcodeError = $cityError = $communicationError = $messageError = $valid = "";
+  $pronounError = $nameError = $emailError = $phonenumberError = $streetError = $housenumberError = $postalcodeError = $cityError = $communicationError = $messageError = "";
+    $valid = false;
 
-  function validateInput() { 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      //TODO remove duplicate checking where applicable
+      //TODO save valid inputs when form isn't complete after hitting send
 
-    //TODO remove duplicate checking where applicable
-    //TODO save valid inputs when form isn't complete after hitting send
+
+      //save input if valid and send error message when not valid
+      if (empty($_POST["pronouns"])) {
+        $pronounError = "Pronouns are required";
+      } else {
+        $pronouns = $_POST['pronouns'];
+      }
 
 
-    //TODO make a required fields array where you can loop through these 4 fields 
-    if (empty($_POST["pronouns"])) {
-      $pronounError = "Pronouns are required";
-    } 
+    if (empty($_POST["name"])) {
+        $nameError = "Name is required";
+      } 
+      else {
+        $name = $_POST['name'];
+      }
 
-  if (empty($_POST["name"])) {
-      $nameError = "Name is required";
-    } 
+    if (empty($_POST["email"])) {
+        $emailError = "Email is required";
+      } 
+      else {
+        $email = $_POST['email'];
+      }
 
-  if (empty($_POST["message"])) {
-      $messageError = "Message is required";
-    } 
+    if (empty($_POST["message"])) {
+        $messageError = "Message is required";
+      } else {
+        $message = $_POST['message'];
+      }
 
-  if (empty($_POST["communication"])) {
-      $communicationError = "Communication method is required";
+      if (empty($_POST["phonenumber"])) {
+        $phonenumberError = "Phone number is required";
+      } 
+      else {
+        $phonenumber = $_POST['phonenumber'];
+
+      } 
+
+      if (empty($_POST["street"])) {
+        $streetError = "Street is required";
+      } 
+      else {
+        $street = $_POST['street'];
+      }
+
+      if (empty($_POST["housenumber"])) {
+        $housenumberError = "House number is required";
+      } 
+      else {
+        $housenumber = $_POST['housenumber'];
+      }
+
+      if (empty($_POST["postalcode"])) {
+        $postalcodeError = "Postal code is required";
+      } 
+      else {
+        $postalcode = $_POST['postalcode'];
+      }
+
+      if (empty($_POST["city"])) {
+        $cityError = "City is required";
+      } 
+      else {
+        $city = $_POST['city'];
+      }
+
+
+
+
+
+
+    if (empty($_POST["communication"])) {
+        $communicationError = "Communication method is required";
+      }
+
+      $requiredFields = false;
+    if (!empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"])) {
+        $requiredFields = true;
+      }
+
+      //TODO check to see if this can be made smaller
+    if ($_POST["communication"] == "email" && empty($_POST["email"])) {
+        $emailError = "Please enter a valid email address";
+      } else if ($_POST["communication"] == "email" && !empty($_POST["email"]) &&  $requiredFields ) {
+          $valid  = true;
+      }
+
+    if ($_POST["communication"] == "phone" && empty($_POST["phonenumber"])) {
+        $phonenumberError = "Please enter a valid phone number";
+      } else if ($_POST["communication"] == "phone" && !empty($_POST["phonenumber"]) &&  $requiredFields)
+      {
+          $valid = true;
+      }
+
+
+      $isPostalAddressMandatory = ($_POST['communication'] == 'postal') || empty($_POST['street']) || empty($_POST['housenumber']) || empty($_POST['postalcode']) || empty($_POST['city'] && $requiredFields);
+
+      if ($isPostalAddressMandatory && empty($_POST['street'])) {
+        $streetError = 'Street is mandatory';
+      }
+      if ($isPostalAddressMandatory && empty($_POST['housenumber'])) {
+        $housenumberError = 'House number is mandatory';
+      }
+      if ($isPostalAddressMandatory && empty($_POST['postalcode'])) {
+        $postalcodeError = 'Postal code is mandatory';
+      }
+      if ($isPostalAddressMandatory && empty($_POST['city'])) {
+        $cityError = 'City is mandatory';
+      }
+
+      
+      if ($_POST["communication"] == "postal" && !empty($_POST["street"]) && !empty($_POST["housenumber"]) && !empty($_POST["postalcode"]) && !empty($_POST["city"]) &&  !empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"])) { 
+      $valid = true;
+      }
     }
-    
-
-    //TODO check to see if this can be made smaller
-  if ($_POST["communication"] == "email" && empty($_POST["email"])) {
-      $emailError = "Please enter a valid email address";
-    } else if ($_POST["communication"] == "email" && !empty($_POST["email"]) &&  !empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"]) ) {
-        $valid  = true;
-    }
-
-  if ($_POST["communication"] == "phone" && empty($_POST["phonenumber"])) {
-      $phonenumberError = "Please enter a valid phone number";
-    } else if ($_POST["communication"] == "phone" && !empty($_POST["phonenumber"]) &&  !empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"]))
-    {
-        $valid = true;
-    }
-
-if ($_POST["communication"] == "postal" && empty($_POST["street"]) || empty($_POST["housenumber"]) || empty($_POST["postalcode"]) || empty($_POST["city"]) || empty($_POST["communication"]) || empty($_POST["message"])) {
-    $streetError = $housenumberError = $postalcodeError = $cityError = "Please fill in the entire address"; } 
-    else if ($_POST["communication"] == "postal" && !empty($_POST["street"]) && !empty($_POST["housenumber"]) && !empty($_POST["postalcode"]) && !empty($_POST["city"]) &&  !empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"])) { 
-    $valid = true;
-  }
 
   //TODO handle return statement inside index
-  if ($valid) {
-    return true;
-  } else {
-    return false;
-    }
+    return [ 'valid' => $valid, 'pronouns' => $pronouns, 'name' => $name, 'email' => $email, 'phonenumber' => $phonenumber, 'street' => $street, 
+             'housenumber' => $housenumber, 'postalcode' => $postalcode, 'city' => $city, 'communication' => $communication, 'message' => $message,
+             'pronounError' => $pronounError, 'nameError' => $nameError, 'emailError' => $emailError, 'phonenumberError' => $phonenumberError, 'streetError' => $streetError, 'housenumberError' => $housenumberError, 'postalcodeError' => $postalcodeError, 'cityError' => $cityError, 'communicationError' => $communicationError, 'messageError' => $messageError ];
   }
 
   function showFormStart() {
@@ -67,16 +145,17 @@ if ($_POST["communication"] == "postal" && empty($_POST["street"]) || empty($_PO
 
     <p>If you have any questions or comments, please feel free to contact me using the form below.</p>
     <form action=\"index.php\" method=\"POST\">
+    <input name=\"page\" value=\"Contact\" type=\"hidden\">
     ";
   }
 
-  function showFormField($fieldName, $label, $data, $fieldNameError) {
+  function showFormField($fieldName, $label, $data) {
 
     echo "
     <div>
     <label for=\"$fieldName\">$label:</label>
-    <input type=\"text\" name=\"name\" value=\"$data\">
-    <span>* <?php echo $fieldNameError;?></span>
+    <input type=\"text\" name=\"$fieldName\" value=\"". $data[$fieldName]."\">
+    <span>* " . $data[$fieldName . "Error"]  . "</span>
     </div>";
 
   }
@@ -128,19 +207,19 @@ if ($_POST["communication"] == "postal" && empty($_POST["street"]) || empty($_PO
   }
 
 
-  function showContactPage(){ //TODO fix the contact form so that it submits again
+  function showContactPage($data){ //TODO fix the contact form so that it submits again
     
     showFormStart();
     showPronounField("pronouns", "pronounError");//TODO
-    showFormField("name", "Name", "", "nameError"); 
-    showFormField("email", "Email", "", "emailError"); 
-    showFormField("phonenumber", "Phone number", "", "phonenumberError");
-    showFormField("street", "Street", "", "streetError"); 
-    showFormField("housenumber", "House number", "", "housenumberError");
-    showFormField("postalcode", "Postal code", "", "postalcodeError");
-    showFormField("city", "City", "", "cityError"); 
+    showFormField("name", "Name", $data); 
+    showFormField("email", "Email", $data); 
+    showFormField("phonenumber", "Phone number", $data);
+    showFormField("street", "Street", $data); 
+    showFormField("housenumber", "House number", $data);
+    showFormField("postalcode", "Postal code", $data);
+    showFormField("city", "City", $data); 
     showCommunicationPreference();//TODO
-    showFormField("message", "Message", "", "messageError"); 
+    showFormField("message", "Message", $data); 
     showFormEnd();
   
   }
