@@ -54,7 +54,13 @@ if ($_POST["communication"] == "postal" && empty($_POST["street"]) || empty($_PO
     $valid = true;
   }
 
-}
+  //TODO handle return statement inside index
+  if ($valid) {
+    return true;
+  } else {
+    return false;
+    }
+  }
 
   function showFormStart() {
     echo "<h2>Contact Me</h2>

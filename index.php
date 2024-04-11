@@ -11,7 +11,6 @@ include 'thankyou.php';
 include 'beginDocument.php';
 include 'endDocument.php';
 
-
 function showContent($data){
 	switch($data)
 	{
@@ -32,32 +31,37 @@ function showContent($data){
 	}
 }
 
-$requestedPage = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$requestedPage = trim($requestedPage, '/');  // Remove leading/trailing slashes
+function getRequestedPage() {
+  $page = 'Home';
 
-function getRequestedPage() { //TODO check back to see if this is single door routing or not
-	$page = 'Home';
-  
   // Check for page in POST data if request method is POST
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	  if (isset($_POST['page'])) {
-		return $_POST['page'];
-	  }
-	}
-  
-	// Fallback to GET if no page found in POST
-	if (!isset($_GET['page'])) {
-	  return 'Home';
-	} else {
-	  return $_GET['page'];
-	}
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['page'])) {
+      $page = $_POST['page'];
+
+      // Check if the requested page is Contact and perform validation
+      if ($page === 'Contact') {
+        $valid = validateInput(); // Call the validation function from contact.php (assuming it's included)
+
+        // Handle the validation result
+        if ($valid) {
+          // Form is valid, show Thank You page (or perform further actions)
+          $page = 'Thankyou';
+        } 
+      }
+    }
+  } else {
+    // Fallback to GET if no page found in POST
+    if (!isset($_GET['page'])) {
+      $page = 'Home';
+    } else {
+      $page = $_GET['page'];
+    }
   }
 
-$requestedPage = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$requestedPage = trim($requestedPage, '/');
-	  
-
-
+  return $page;
+}
+	
 function showResponsePage($data){
 	beginDocument();
 	showHeader();
