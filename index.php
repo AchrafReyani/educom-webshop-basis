@@ -10,7 +10,12 @@ include 'footer.php';
 include 'thankyou.php';
 include 'beginDocument.php';
 include 'endDocument.php';
+include 'register.php';
+include 'login.php';
 
+session_start(); //start session
+
+//functions
 function showContent($data){
 	switch($data['page'])
 	{
@@ -25,6 +30,12 @@ function showContent($data){
       break;
     case 'Thankyou';
       showThankYouPage($data);
+      break;
+    case 'Register';
+		  showRegisterPage();
+		  break;
+		case 'Login';
+		  showLoginPage();
 		  break;
 		default; 
 		  showHomePage();
@@ -80,6 +91,7 @@ function showResponsePage($data){
 	endDocument();
 }
 
+//start of application
 $page = getRequestedPage();
 $data = processRequest($page);
 var_dump($data);//for testing
