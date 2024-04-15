@@ -78,6 +78,24 @@ function processRequest($page) {
         $page = 'Thankyou';
       }
       break;
+    case 'Register';
+      $data = validateRegistration();
+      if ($data['valid']) {
+        $page = 'Home';
+        //set state to logged in?
+        //write user to file
+      }
+      break;
+    case 'Login';
+      $data = validateLogin();
+      if ($data['valid']) {
+        $page = 'Home';
+        //set state to logged in
+      }
+      break;
+		default;
+
+      break;
     }
     $data['page'] = $page; //add value of current page to the data
     return $data;

@@ -1,5 +1,30 @@
 <?php 
 
+function showLoginStart() {
+  echo "<h2>Register</h2>
+  <p>Please enter your details to register.</p>
+  <form action=\"register.php\" method=\"post\">
+  <input name=\"page\" value=\"Login\" type=\"hidden\">";
+}
+
+function showLoginEnd() {
+   echo "<div>
+   <input type=\"submit\" value=\"Send\">
+   </div>
+ </form>";
+}
+
+function showLoginField($fieldName, $label, $data) {
+
+   echo "
+   <div>
+   <label for=\"$fieldName\">$label:</label>
+   <input type=\"text\" name=\"$fieldName\" value=\"". $data[$fieldName]."\">
+   <span>* " . $data[$fieldName . "Error"]  . "</span>
+   </div>";
+
+ }
+
 function validateLogin($email, $password) {
     $usersFile = 'users.txt';
   
@@ -25,14 +50,12 @@ function validateLogin($email, $password) {
   }
 
     function showLoginPage(){
-        echo '<form action="login.php" method="post"> <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required><br>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required><br>
-
-        <button type="submit">Login</button>
-    </form>';
+      showLoginStart();
+      showLoginField("email", "Email", $data);
+      showLoginField("password", "Password", $data);
+      showLoginEnd();
+        
     }
 
 ?>

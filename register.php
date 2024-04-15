@@ -1,5 +1,31 @@
 <?php 
 
+function showRegisterStart() {
+   echo "<h2>Register</h2>
+   <p>Please enter your details to register.</p>
+   <form action=\"register.php\" method=\"post\">
+   <input name=\"page\" value=\"Register\" type=\"hidden\">";
+}
+
+function showRegisterEnd() {
+    echo "<div>
+    <input type=\"submit\" value=\"Send\">
+    </div>
+  </form>";
+}
+
+function showRegisterField($fieldName, $label, $data) {
+
+    echo "
+    <div>
+    <label for=\"$fieldName\">$label:</label>
+    <input type=\"text\" name=\"$fieldName\" value=\"". $data[$fieldName]."\">
+    <span>* " . $data[$fieldName . "Error"]  . "</span>
+    </div>";
+
+  }
+
+
     function validateRegistration() {
         if (isset($_POST['email']) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['confirm_password'])) {
             $email = $_POST['email'];
@@ -12,21 +38,14 @@
     }}
 
     function showRegisterPage(){
-        echo '<form action="register.php" method="post">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required><br>
+        
+        showRegisterStart();
+        showRegisterField('name', 'Name', $data);
+        showRegisterField('email', 'Email', $data);
+        showRegisterField('password', 'Password', $data);
+        showRegisterEnd();
+    
 
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required><br>
-
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required><br>
-
-        <label for="confirm_password">Confirm Password:</label>
-        <input type="password" name="confirm_password" id="confirm_password" required><br>
-
-        <button type="submit">Register</button>
-    </form>';
     }
 
 ?>
