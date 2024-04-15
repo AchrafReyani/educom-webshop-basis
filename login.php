@@ -25,7 +25,7 @@ function showLoginField($fieldName, $label, $data) {
 
  }
 
-function validateLogin($email, $password) {
+function validateLogin() {
     $usersFile = 'users.txt';
   
     if (!file_exists($usersFile)) {
@@ -49,7 +49,7 @@ function validateLogin($email, $password) {
     return false; // Login failed: Email or password not found
   }
 
-    function showLoginPage(){
+    function showLoginPage($data){
 
       showLoginStart();
       showLoginField("email", "Email", $data);

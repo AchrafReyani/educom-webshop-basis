@@ -27,25 +27,53 @@ function showRegisterField($fieldName, $label, $data) {
 
 
     function validateRegistration() {
-        if (isset($_POST['email']) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['confirm_password'])) {
-            $email = $_POST['email'];
-            $name = $_POST['name'];
-            $password = $_POST['password'];
-            $confirm_password = $_POST['confirm_password'];
+
+        $email = $name = $password = $confirm_password = "";
+        $emailError = $nameError = $passwordError = $confirm_passwordError = "";
+        $valid = false;
+
+        if ($_SERVER ["REQUEST_METHOD"] == "POST") {
+      //save input if valid and send error message when not valid
+      if (empty($_POST["email"])) {
+        $emailError = "Email is required";
+      } else {
+        $email = $_POST['email'];
+      }
+
+      if (empty($_POST["name"])) {
+        $nameError = "Name is required";
+      } else {
+        $name = $_POST['name'];
+      }
+
+      if (empty($_POST["password"])) {
+        $passwordError = "Password is required";
+      } else {
+        $password = $_POST['password'];
+      }
+
+      if (empty($_POST["confirm_password"])) {
+        $confirm_passwordError = "Confirm password is required";
+      } else {
+        $confirm_password = $_POST['confirm_password'];
+      }
+
+    }
 
 
 
-    }}
 
-    function showRegisterPage(){
-        
+    }
+
+    function showRegisterPage($data){
+
         showRegisterStart();
         showRegisterField('name', 'Name', $data);
         showRegisterField('email', 'Email', $data);
         showRegisterField('password', 'Password', $data);
+        showRegisterField('confirm_password', 'Confirm Password', $data);
         showRegisterEnd();
     
-
     }
 
 ?>

@@ -32,10 +32,10 @@ function showContent($data){
       showThankYouPage($data);
       break;
     case 'Register';
-		  showRegisterPage();
+		  showRegisterPage($data);
 		  break;
 		case 'Login';
-		  showLoginPage();
+		  showLoginPage($data);
 		  break;
 		default; 
 		  showHomePage();
