@@ -23,7 +23,6 @@ function showContent($data){
 		  showAboutPage();
 		  break;
 		case 'Contact';
-      
 		  showContactPage($data);
       break;
     case 'Thankyou';
@@ -31,11 +30,9 @@ function showContent($data){
       showThankYouPage($data);
       break;
     case 'Register';
-      
 		  showRegisterPage($data);
 		  break;
 		case 'Login';
-      
 		  showLoginPage($data);
 		  break;
 		default; 

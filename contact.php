@@ -15,11 +15,10 @@
     $valid = false;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      //TODO remove duplicate checking where applicable
-      //TODO save valid inputs when form isn't complete after hitting send
-
 
       //save input if valid and send error message when not valid
+
+      //mandatory fields
       if (empty($_POST["pronouns"])) {
         $pronounsError = "Pronouns are required";
       } else {
@@ -34,65 +33,71 @@
         $name = $_POST['name'];
       }
 
-    if (empty($_POST["email"])) {
-        $emailError = "Email is required";
-      } 
-      else {
-        $email = $_POST['email'];
-      }
-
-    if (empty($_POST["message"])) {
-        $messageError = "Message is required";
-      } else {
-        $message = $_POST['message'];
-      }
-
-      if (empty($_POST["phonenumber"])) {
-        $phonenumberError = "Phone number is required";
-      } 
-      else {
-        $phonenumber = $_POST['phonenumber'];
-
-      } 
-
-      if (empty($_POST["street"])) {
-        $streetError = "Street is required";
-      } 
-      else {
-        $street = $_POST['street'];
-      }
-
-      if (empty($_POST["housenumber"])) {
-        $housenumberError = "House number is required";
-      } 
-      else {
-        $housenumber = $_POST['housenumber'];
-      }
-
-      if (empty($_POST["postalcode"])) {
-        $postalcodeError = "Postal code is required";
-      } 
-      else {
-        $postalcode = $_POST['postalcode'];
-      }
-
-      if (empty($_POST["city"])) {
-        $cityError = "City is required";
-      } 
-      else {
-        $city = $_POST['city'];
-      }
-
-
-
-
-
       if (empty($_POST["communication"])) {
         $communicationError = "Communication method is required";
       } else {
         $communication = $_POST['communication'];
       }
 
+      if (empty($_POST["message"])) {
+        $messageError = "Message is required";
+      } else {
+        $message = $_POST['message'];
+      }
+
+
+      //send error message depending on the communication method
+
+      if ($communication == "email") {
+        echo 'email was communication';
+        if (empty($_POST["email"])) {
+          $emailError = "Email is required";
+        } 
+        else {
+          $email = $_POST['email'];
+        }
+      
+      }else if ($communication == "phone") {
+
+        if (empty($_POST["phonenumber"])) {
+          $phonenumberError = "Phone number is required";
+        } 
+        else {
+          $phonenumber = $_POST['phonenumber'];
+  
+        } 
+      
+      }else if ($communication == "postal") {
+        echo 'postal was communication';
+        if (empty($_POST["street"])) {
+          $streetError = "Street is required";
+        } 
+        else {
+          $street = $_POST['street'];
+        }
+  
+        if (empty($_POST["housenumber"])) {
+          $housenumberError = "House number is required";
+        } 
+        else {
+          $housenumber = $_POST['housenumber'];
+        }
+  
+        if (empty($_POST["postalcode"])) {
+          $postalcodeError = "Postal code is required";
+        } 
+        else {
+          $postalcode = $_POST['postalcode'];
+        }
+  
+        if (empty($_POST["city"])) {
+          $cityError = "City is required";
+        } 
+        else {
+          $city = $_POST['city'];
+        }
+      
+      }
 
       $requiredFields = false;
     if (!empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"])) {
@@ -112,23 +117,6 @@
       {
           $valid = true;
       }
-
-
-      $isPostalAddressMandatory = ($_POST["communication"] == 'postal') || empty($_POST['street']) || empty($_POST['housenumber']) || empty($_POST['postalcode']) || empty($_POST['city'] && $requiredFields);
-
-      if ($isPostalAddressMandatory && empty($_POST['street'])) {
-        $streetError = 'Street is mandatory';
-      }
-      if ($isPostalAddressMandatory && empty($_POST['housenumber'])) {
-        $housenumberError = 'House number is mandatory';
-      }
-      if ($isPostalAddressMandatory && empty($_POST['postalcode'])) {
-        $postalcodeError = 'Postal code is mandatory';
-      }
-      if ($isPostalAddressMandatory && empty($_POST['city'])) {
-        $cityError = 'City is mandatory';
-      }
-
       
       if ($_POST["communication"] == "postal" && !empty($_POST["street"]) && !empty($_POST["housenumber"]) && !empty($_POST["postalcode"]) && !empty($_POST["city"]) &&  !empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"])) { 
       $valid = true;
