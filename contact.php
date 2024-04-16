@@ -4,14 +4,14 @@
 
   
 
-  function validateInput() { 
+  function validateForm() { 
       //add empty values to variables
   $pronouns = $name = $email = $phonenumber = $street = $housenumber = $postalcode =
   $city = $communication = $message = "";
   
 
   //initiate error message variables
-  $pronounError = $nameError = $emailError = $phonenumberError = $streetError = $housenumberError = $postalcodeError = $cityError = $communicationError = $messageError = "";
+  $pronounsError = $nameError = $emailError = $phonenumberError = $streetError = $housenumberError = $postalcodeError = $cityError = $communicationError = $messageError = "";
     $valid = false;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,7 +21,7 @@
 
       //save input if valid and send error message when not valid
       if (empty($_POST["pronouns"])) {
-        $pronounError = "Pronouns are required";
+        $pronounsError = "Pronouns are required";
       } else {
         $pronouns = $_POST['pronouns'];
       }
@@ -90,7 +90,7 @@
       if (empty($_POST["communication"])) {
         $communicationError = "Communication method is required";
       } else {
-        $communicationmethod = $_POST['communication'];
+        $communication = $_POST['communication'];
       }
 
 
@@ -138,7 +138,7 @@
   //TODO handle return statement inside index
     return [ 'valid' => $valid, 'pronouns' => $pronouns, 'name' => $name, 'email' => $email, 'phonenumber' => $phonenumber, 'street' => $street, 
              'housenumber' => $housenumber, 'postalcode' => $postalcode, 'city' => $city, 'communication' => $communication, 'message' => $message,
-             'pronounError' => $pronounError, 'nameError' => $nameError, 'emailError' => $emailError, 'phonenumberError' => $phonenumberError, 'streetError' => $streetError, 'housenumberError' => $housenumberError, 'postalcodeError' => $postalcodeError, 'cityError' => $cityError, 'communicationError' => $communicationError, 'messageError' => $messageError ];
+             'pronounsError' => $pronounsError, 'nameError' => $nameError, 'emailError' => $emailError, 'phonenumberError' => $phonenumberError, 'streetError' => $streetError, 'housenumberError' => $housenumberError, 'postalcodeError' => $postalcodeError, 'cityError' => $cityError, 'communicationError' => $communicationError, 'messageError' => $messageError ];
   }
 
   function showFormStart() {
@@ -162,25 +162,25 @@
   }
   
   //temporary function to show pronoun input field
-  function showPronounField($pronouns, $pronounError) {
+  function showPronounField($fieldName, $label, $data) {
     echo "
     <div>
-  <label for=\"pronouns\">Pronouns:</label>
-  <select name=\"pronouns\" value=\"$pronouns\">
+  <label for=\"$fieldName\">$label:</label>
+  <select name=\"$fieldName\" value=\"". $data[$fieldName]."\">
     <option value=\"\">Please select a pronoun</option>
-    <option value=\"he/him\">He/him</option>
-    <option value=\"she/her\">She/her</option>
-    <option value=\"they/them\">They/them</option>
-    <option value=\"other\">Other</option>
-    <option value=\"prefer not to say\">Prefer not to say</option>
+    <option value=\"he/him\" ". ($data[$fieldName] == "he/him" ? "selected=\"selected\"" : "").">He/him</option>
+    <option value=\"she/her\" " . ($data[$fieldName] == "she/her" ? "selected=\"selected\"" : "").">She/her</option>
+    <option value=\"they/them\" ". ($data[$fieldName] == "they/them" ? "selected=\"selected\"" : "").">They/them</option>
+    <option value=\"other\" ". ($data[$fieldName] == "other" ? "selected=\"selected\"" : "").">Other</option>
+    <option value=\"prefer not to say\" ". ($data[$fieldName] == "prefer not to say" ? "selected=\"selected\"" : "").">Prefer not to say</option>
   </select>
-  <span>* <?php echo $pronounError;?></span>
+  <span>* " . $data[$fieldName . "Error"]  . "</span>
   </div>
     ";
   }
 
   //temporary function to show communication preference input field
-  function showCommunicationPreference() {
+  function showCommunicationPreference($data) {
       $communicationmethod = ["email", "phone", "postal"];
       $communicationError = "";
 
@@ -195,7 +195,7 @@
       $methodId = lcfirst($method) . "-communication"; // Generate unique ID for each radio button
       echo "
         <label for=\"$methodId\">$method</label>
-        <input type=\"radio\" id=\"$methodId\" name=\"communication\" value=\"$method\">
+        <input type=\"radio\" id=\"$methodId\" name=\"communication\" value=\"$method\" " . ($data["communication"] == $method ? "checked" : "") . ">
       ";
     }
   
@@ -214,7 +214,7 @@
   function showContactPage($data){ //TODO fix the contact form so that it submits again
     
     showFormStart();
-    showPronounField("pronouns", "pronounError");//TODO
+    showPronounField("pronouns", "Pronouns", $data);//TODO
     showFormField("name", "Name", $data); 
     showFormField("email", "Email", $data); 
     showFormField("phonenumber", "Phone number", $data);
@@ -222,7 +222,7 @@
     showFormField("housenumber", "House number", $data);
     showFormField("postalcode", "Postal code", $data);
     showFormField("city", "City", $data); 
-    showCommunicationPreference();//TODO
+    showCommunicationPreference($data);
     showFormField("message", "Message", $data); 
     showFormEnd();
   

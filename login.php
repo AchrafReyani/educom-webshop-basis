@@ -1,60 +1,80 @@
 <?php 
 
-function showLoginStart() {
-  echo "<h2>Register</h2>
-  <p>Please enter your details to register.</p>
-  <form action=\"register.php\" method=\"post\">
-  <input name=\"page\" value=\"Login\" type=\"hidden\">";
-}
-
-function showLoginEnd() {
-   echo "<div>
-   <input type=\"submit\" value=\"Send\">
-   </div>
- </form>";
-}
-
-function showLoginField($fieldName, $label, $data) {
-
-   echo "
-   <div>
-   <label for=\"$fieldName\">$label:</label>
-   <input type=\"text\" name=\"$fieldName\" value=\"". $data[$fieldName]."\">
-   <span>* " . $data[$fieldName . "Error"]  . "</span>
-   </div>";
-
- }
 
 function validateLogin() {
-    $usersFile = 'users.txt';
-  
-    if (!file_exists($usersFile)) {
-      return false; // File not found error
+    $usersFile = 'users/users.txt';
+    $valid = false;
+    $email = $password = $username= "";   
+    $loginError = $emailError = $passwordError = "";
+
+    if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
+    if (empty($_POST["email"])) {
+      $emailError = "Email is required";
+    } else {
+      $email = $_POST['email'];
     }
-  
-    $lines = file($usersFile);
-    foreach ($lines as $line) {
-      $userData = explode('|', trim($line)); // Split line by delimiter '|' and trim whitespaces
-      if (count($userData) !== 3) { // Check if data has the expected format
-        continue; // Skip invalid lines
-      }
-  
-      list($user_email, $user_name, $hashed_password) = $userData; // Assign variables
-  
-      if ($user_email === $email && password_verify($password, $hashed_password)) {
-        return true; // Valid email and password found
+
+    if (empty($_POST["password"])) {
+      $passwordError = "Password is required";
+    } else {
+      $password = $_POST['password'];
+    }
+
+    //logic to check file for valid userinfo
+    $users = file($usersFile, FILE_IGNORE_NEW_LINES);
+    foreach ($users as $user) {
+      $userInfo = explode('|', $user);
+      if ($email == $userInfo[0] && $password == $userInfo[2]) {
+        $username = $userInfo[1];
+        $valid = true;
+        break;
       }
     }
-  
-    return false; // Login failed: Email or password not found
+
+    if (!$valid) {
+      $loginError = "Incorrect email or password";
+    }
   }
+
+    //$valid = true when email and password combination is found in file
+
+    return [ 'valid' => $valid, 'email' => $email, 'password' => $password,  'loginError' => $loginError,  
+              'emailError' => $emailError, 'passwordError' => $passwordError, 'username' => $username];
+
+  }
+
+  function showLoginStart() {
+    echo "<h2>Login</h2>
+    <p>Please enter your email and password to Login.</p>
+    <form action=\"index.php\" method=\"post\">
+    <input name=\"page\" value=\"Login\" type=\"hidden\">";
+  }
+  
+  function showLoginEnd($errorMessage, $data) {
+     echo "<div>
+     <span>* " . $data[$errorMessage]  . "</span>
+     <input type=\"submit\" value=\"Send\">
+     </div>
+   </form>";
+  }
+  
+  function showLoginField($fieldName, $label, $data) {
+  
+     echo "
+     <div>
+     <label for=\"$fieldName\">$label:</label>
+     <input type=\"text\" name=\"$fieldName\" value=\"". $data[$fieldName]."\">
+     <span>* " . $data[$fieldName . "Error"]  . "</span>
+     </div>";
+  
+   }
 
     function showLoginPage($data){
 
       showLoginStart();
       showLoginField("email", "Email", $data);
       showLoginField("password", "Password", $data);
-      showLoginEnd();
+      showLoginEnd('loginError', $data);
         
     }
 

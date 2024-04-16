@@ -1,6 +1,7 @@
 <?php
 
 //includes
+include "sessionManager.php";
 include 'header.php';
 include 'menu.php';
 include 'home.php';
@@ -71,7 +72,7 @@ function processRequest($page) {
   switch($page)
 	{
 		case 'Contact';
-      $data = validateInput(); // Call the validation function from contact.php (assuming it's included)
+      $data = validateForm(); // Call the validation function from contact.php (assuming it's included)
       // Handle the validation result
       if ($data['valid']) {
         // Form is valid, show Thank You page (or perform further actions)
@@ -89,11 +90,17 @@ function processRequest($page) {
     case 'Login';
       $data = validateLogin();
       if ($data['valid']) {
+        doLoginUser($data['username']);
         $page = 'Home';
         //set state to logged in
       }
       break;
-		default;
+    case 'Logout';
+      doLogoutUser();
+      $page = 'Home';
+      break;
+
+      default;
 
       break;
     }
