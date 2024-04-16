@@ -1,3 +1,6 @@
 [email]|[name]|[password]
 achraf@gmail.com|Achraf Reyani|halt!
-test@gmail.com|Test User|12345
+test@gmail.com|Test User|12345||
+tester2@gmail.com|Tester 2|54321
+aaa@q.com|aaa|abc
+||

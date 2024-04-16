@@ -35,7 +35,31 @@
 
     }
 
-     //TODO handle return statement inside index
+      //check if email already exists
+      $usersFile = 'users/users.txt';
+      $users = file($usersFile, FILE_IGNORE_NEW_LINES);
+      foreach ($users as $user) {
+        $userInfo = explode('|', $user);
+        if ($email == $userInfo[0]) {
+          $emailError = "Email already exists";
+          break;
+        }
+      }
+
+      //check if passwords match
+      if ($password != $confirm_password) {
+        $passwordError = "Passwords do not match";
+        $confirm_passwordError = "Passwords do not match";
+      }
+
+      //write user info to the usersfile
+      if ($emailError == "" && $nameError == "" && $passwordError == "" && $confirm_passwordError == "") {
+        $valid = true;
+        $user = $email . '|' . $name . '|' . $password .  PHP_EOL;
+        file_put_contents($usersFile, $user, FILE_APPEND);
+      }
+
+     
      return [ 'valid' => $valid,  'name' => $name, 'email' => $email, 'password' => $password, 'confirm_password' => $confirm_password, 'passwordError' => $passwordError, 'confirm_passwordError' => $confirm_passwordError, 'nameError' => $nameError, 'emailError' => $emailError ];
 }
   
