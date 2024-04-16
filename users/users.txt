@@ -4,3 +4,4 @@ test@gmail.com|Test User|12345||
 tester2@gmail.com|Tester 2|54321
 aaa@q.com|aaa|abc
 ||
+email@email.com|naam|wachtwoord

@@ -1,18 +1,12 @@
 <?php
 
-//includes
+//mandatory includes for all pages
 include "sessionManager.php";
 include 'header.php';
 include 'menu.php';
-include 'home.php';
-include 'about.php';
-include 'contact.php';
 include 'footer.php';
-include 'thankyou.php';
 include 'beginDocument.php';
 include 'endDocument.php';
-include 'register.php';
-include 'login.php';
 
 session_start(); //start session
 
@@ -21,21 +15,27 @@ function showContent($data){
 	switch($data['page'])
 	{
 		case 'Home';
+      include 'home.php';
 		  showHomePage();
 		  break;
 		case 'About';
+      include 'about.php';
 		  showAboutPage();
 		  break;
 		case 'Contact';
+      
 		  showContactPage($data);
       break;
     case 'Thankyou';
+      include 'thankyou.php';
       showThankYouPage($data);
       break;
     case 'Register';
+      
 		  showRegisterPage($data);
 		  break;
 		case 'Login';
+      
 		  showLoginPage($data);
 		  break;
 		default; 
@@ -72,6 +72,7 @@ function processRequest($page) {
   switch($page)
 	{
 		case 'Contact';
+      include 'contact.php';
       $data = validateForm(); // Call the validation function from contact.php (assuming it's included)
       // Handle the validation result
       if ($data['valid']) {
@@ -80,6 +81,7 @@ function processRequest($page) {
       }
       break;
     case 'Register';
+      include 'register.php';
       $data = validateRegistration();
       if ($data['valid']) {
         $page = 'Home';
@@ -88,6 +90,7 @@ function processRequest($page) {
       }
       break;
     case 'Login';
+      include 'login.php';
       $data = validateLogin();
       if ($data['valid']) {
         doLoginUser($data['username']);
