@@ -138,19 +138,16 @@
     ";
   }
 
-  function showFormField($fieldName, $label, $data) {
-
+  //shows all the input fields and errors
+  function showFormField($fieldName, $label, $data, $options = NULL) {
+    if ($options == NULL) {
     echo "
     <div>
     <label for=\"$fieldName\">$label:</label>
     <input type=\"text\" name=\"$fieldName\" value=\"". $data[$fieldName]."\">
     <span>* " . $data[$fieldName . "Error"]  . "</span>
     </div>";
-
-  }
-  
-  //temporary function to show pronoun input field
-  function showPronounField($fieldName, $label, $data) {
+  } else if ($options == 'PRONOUN') {
     echo "
     <div>
   <label for=\"$fieldName\">$label:</label>
@@ -165,15 +162,10 @@
   <span>* " . $data[$fieldName . "Error"]  . "</span>
   </div>
     ";
-  }
-
-  //temporary function to show communication preference input field
-  function showCommunicationPreference($data) {
-      $communicationmethod = ["email", "phone", "postal"];
+  } else if ($options == 'COMMUNICATION') {
+    $communicationmethod = ["email", "phone", "postal"];
       $communicationError = "";
 
-    
-  
     echo "
       <div>
         <p>Preferred Communication Method:</p> <span>* $communicationError</span>
@@ -189,6 +181,10 @@
   
     echo "</div>";
   }
+  }
+  
+
+
 
   function showFormEnd() {
     echo "<div>
@@ -199,19 +195,19 @@
   }
 
 
-  function showContactPage($data){ //TODO fix the contact form so that it submits again
+  function showContactPage($data){
     
     showFormStart();
-    showPronounField("pronouns", "Pronouns", $data);//TODO
-    showFormField("name", "Name", $data); 
-    showFormField("email", "Email", $data); 
-    showFormField("phonenumber", "Phone number", $data);
-    showFormField("street", "Street", $data); 
-    showFormField("housenumber", "House number", $data);
-    showFormField("postalcode", "Postal code", $data);
-    showFormField("city", "City", $data); 
-    showCommunicationPreference($data);
-    showFormField("message", "Message", $data); 
+    showFormField("pronouns", "Pronouns", $data, 'PRONOUN');
+    showFormField("name", "Name", $data, NULL); 
+    showFormField("email", "Email", $data, NULL); 
+    showFormField("phonenumber", "Phone number", $data, NULL);
+    showFormField("street", "Street", $data, NULL); 
+    showFormField("housenumber", "House number", $data, NULL);
+    showFormField("postalcode", "Postal code", $data, NULL);
+    showFormField("city", "City", $data, NULL); 
+    showFormField("communication", "Communication method", $data, 'COMMUNICATION');
+    showFormField("message", "Message", $data, NULL); 
     showFormEnd();
   
   }
