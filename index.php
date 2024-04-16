@@ -42,12 +42,12 @@ function showContent($data){
 
 function getRequestedPage() {
   $page = 'Home';
-echo 1;
+
   // Check for page in POST data if request method is POST
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo 2;
+
     if (isset($_POST['page'])) {
-      echo 3;
+  
       $page = $_POST['page'];
       // Check if the requested page is Contact and perform validation
        
